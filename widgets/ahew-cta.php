@@ -14,7 +14,7 @@ class AHEW_Cta extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-code'; // Elementor default icon
+        return 'eicon-call-to-action'; // Elementor default icon
     }
 
     public function get_categories() {

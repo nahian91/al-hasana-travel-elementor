@@ -14,7 +14,7 @@ class AHEW_Tours extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-code'; // Elementor default icon
+        return 'eicon-kit-details'; // Elementor default icon
     }
 
     public function get_categories() {

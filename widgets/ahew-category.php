@@ -14,7 +14,7 @@ class AHEW_Category extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-code'; // Elementor default icon
+        return 'eicon-folder'; // Elementor default icon
     }
 
     public function get_categories() {

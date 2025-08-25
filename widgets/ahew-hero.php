@@ -14,7 +14,7 @@ class AHEW_Hero extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-code'; // Elementor default icon
+        return 'eicon-slider-push'; // Elementor default icon
     }
 
     public function get_categories() {

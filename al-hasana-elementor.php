@@ -79,6 +79,10 @@ function ahew_register_widgets( $widgets_manager ) {
     }
 
     // Include widget class files
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-breadcumb.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-faq.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-features.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-counter.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-team.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-contact-info.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-blog-grid.php';
@@ -88,9 +92,16 @@ function ahew_register_widgets( $widgets_manager ) {
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-hero.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-about.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-category.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-activities.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-destination.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-tour.php';
 
     // Register widgets
     $widgets_manager->register( new \AHEW_Team() );
+    $widgets_manager->register( new \AHEW_FAQ() );
+    $widgets_manager->register( new \AHEW_Features() );
+    $widgets_manager->register( new \AHEW_Counter() );
+    $widgets_manager->register( new \AHEW_Breadcumb() );
     $widgets_manager->register( new \AHEW_Contact_Info() );
     $widgets_manager->register( new \AHEW_Blog_Grid() );
     $widgets_manager->register( new \AHEW_Tours() );
@@ -99,5 +110,8 @@ function ahew_register_widgets( $widgets_manager ) {
     $widgets_manager->register( new \AHEW_Hero() );
     $widgets_manager->register( new \AHEW_About() );
     $widgets_manager->register( new \AHEW_Category() );
+    $widgets_manager->register( new \AHEW_Activities() );
+    $widgets_manager->register( new \AHEW_Destination() );
+    $widgets_manager->register( new \AHEW_Tour() );
 }
 add_action( 'elementor/widgets/register', 'ahew_register_widgets' );
