@@ -45,117 +45,93 @@ class AHEW_FAQ extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-            <!-- faq-Section Start -->
-        <section class="faq-section section-padding pb-0 fix">
-            <div class="container">
-                <div class="faq-wrapper">
-                    <div class="row g-4">
-                        <div class="col-lg-6">
-                            <div class="faq-items">
-                                <div class="faq-accordion">
-                                    <div class="accordion" id="accordion2">
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".1s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                                    How to Install WordPress theme on cPanel?
-                                                </button>
-                                            </h5>
-                                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                                    Do you have Custom Hosting Service?
-                                                </button>
-                                            </h5>
-                                            <div id="faq2" class="accordion-collapse show" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".5s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                                    Better Security And Faster Server?
-                                                </button>
-                                            </h5>
-                                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".6s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                                    Deployment Within Few Minutes
-                                                </button>
-                                            </h5>
-                                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
+          <section class="faq-section section-padding pt-0 fix">
+        <div class="left-shape float-bob-y">
+            <img src="assets/img/tree-shape-2.png" alt="img">
+        </div>
+        <div class="container">
+            <div class="faq-wrapper">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="faq-content">
+                            <div class="section-title">
+                                <span class="sub-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                                    Choose Your Place
+                                </span>
+                                <h2 class="wow fadeInUp wow" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                    Frequently Asked Questions
+                                </h2>
+                            </div>
+                            <p class="mt-3 mt-mb-0 wow fadeInUp wow" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                We're not just another agency – we're your digital growth partners. With years of
+                                industry experience and a passion for innovation, our team isdedicated to delivering
+                                measurable results propel your business forward.
+                            </p>
+                            <ul class="faq-list wow fadeInUp wow" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                                <li>
+                                    <img src="assets/img/icon/15.svg" alt="img">
+                                    Top quality service
+                                </li>
+                                <li>
+                                    <img src="assets/img/icon/15.svg" alt="img">
+                                    Most Adventure Tour Ever
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="faq-items">
+                            <div class="faq-accordion">
+                                <div class="accordion" id="accordion">
+                                    <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                                        <h5 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                                How do I book a tour with your agency?
+                                            </button>
+                                        </h5>
+                                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                            <div class="accordion-body">
+                                                Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis
+                                                semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="faq-items">
-                                <div class="faq-accordion">
-                                    <div class="accordion" id="accordion3">
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".1s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="true" aria-controls="faq5">
-                                                    How to Install WordPress theme on cPanel?
-                                                </button>
-                                            </h5>
-                                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
+                                    <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                        <h5 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                                What payment methods do you accept?
+                                            </button>
+                                        </h5>
+                                        <div id="faq2" class="accordion-collapse show" data-bs-parent="#accordion">
+                                            <div class="accordion-body">
+                                                Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis
+                                                semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
                                             </div>
                                         </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".3s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
-                                                    Do you have Custom Hosting Service?
-                                                </button>
-                                            </h5>
-                                            <div id="faq6" class="accordion-collapse show" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
+                                    </div>
+                                    <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                                        <h5 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                                Can I customize my travel itinerary?
+                                            </button>
+                                        </h5>
+                                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                            <div class="accordion-body">
+                                                Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis
+                                                semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
                                             </div>
                                         </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".5s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
-                                                    Better Security And Faster Server?
-                                                </button>
-                                            </h5>
-                                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item mb-3 wow fadeInUp" data-wow-delay=".6s">
-                                            <h5 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
-                                                    Deployment Within Few Minutes
-                                                </button>
-                                            </h5>
-                                            <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                                <div class="accordion-body">
-                                                    Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
-                                                </div>
+                                    </div>
+                                    <div class="accordion-item wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                                        <h5 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                                What is your cancellation policy?
+                                            </button>
+                                        </h5>
+                                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                                            <div class="accordion-body">
+                                                Nullam faucibus eleifend mi eu varius. Integer vel tincidunt massa, quis
+                                                semper odio.Mauris et mollis quam. Nullam fringilla erat id ante
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +141,8 @@ class AHEW_FAQ extends \Elementor\Widget_Base {
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <?php 
     }
 }

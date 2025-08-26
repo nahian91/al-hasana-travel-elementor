@@ -46,26 +46,38 @@ class AHEW_About extends \Elementor\Widget_Base {
         $settings = $this->get_settings_for_display();
         ?>
             <!-- About-Section Start -->
-    <section class="about-section section-padding fix">
+    <section class="about-section section-padding  fix bg-cover" style="background-image: url(<?php echo get_template_directory_uri();?>/assets/img/about/about-bg.jpg);" id="about">
+        <div class="right-shape float-bob-x">
+            <img src="<?php echo get_template_directory_uri();?>/assets/img/about/right-shape.png" alt="img">
+        </div>
         <div class="container">
-            <div class="about-wrapper-2">
+            <div class="about-wrapper">
                 <div class="row g-4">
                     <div class="col-lg-6">
                         <div class="about-image">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/about/03.jpg" alt="img">
-                            <div class="shape-image float-bob-y">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/04.png" alt="img">
+                            <img src="<?php echo get_template_directory_uri();?>/assets/img/about/01.png" alt="img" class="wow img-custom-anim-left" style="visibility: visible; animation-name: img-anim-left;">
+                            <div class="border-image">
+                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/border.png" alt="">
                             </div>
-                            <div class="group-image float-bob-x">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/group.png" alt="img">
+                            <div class="vdeo-item">
+                                <a href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" class="video-btn video-popup">
+                                    <i class="fa-duotone fa-play"></i>
+                                </a>
+                                <h5>WACTH VIDEO </h5>
                             </div>
                             <div class="about-image-2">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/05.jpg" alt="img">
-                                <div class="plane-shape">
-                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/plane-shape2.png" alt="img">
+                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/02.png" alt="img" class="wow img-custom-anim-top" data-wow-duration="1.5s" data-wow-delay="0.3s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.3s; animation-name: img-anim-top;">
+                                <div class="plane-shape float-bob-y">
+                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/plane-shape.png" alt="">
                                 </div>
-                                <div class="circle-image">
-                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/circle.png" alt="img">
+                                <div class="about-tour">
+                                    <div class="icon">
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/10.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h4>Luxury Tour</h4>
+                                        <span>25 years of Experience</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -73,55 +85,56 @@ class AHEW_About extends \Elementor\Widget_Base {
                     <div class="col-lg-6">
                         <div class="about-content">
                             <div class="section-title">
-                                <span class="sub-title wow fadeInUp">
-                                    Get About Us
-                                </span>
-                                <h2 class="wow fadeInUp wow" data-wow-delay=".3s">
-                                    We're Strived Only For The
-                                    Best In The World
+                                <span class="sub-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Let’s Go Together</span>
+                                <h2 class="wow fadeInUp wow" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                                    Great opportunity for <br>
+                                    adventure &amp; travels
                                 </h2>
                             </div>
-                            <p class="wow fadeInUp wow" data-wow-delay=".5s">
-                                There are many variations of passages of available, but the majority have suffered
-                                alteration in some form, by injected humour words which don't look even slightly
-                                believable injected humour words which
-                            </p>
-                            <div class="about-items wow fadeInUp wow" data-wow-delay=".3s">
-                                <div class="about-icon-items">
+                            <div class="about-area mt-4 mt-md-0">
+                                <div class="line-image">
+                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/Line-image.png" alt="img">
+                                </div>
+                                <div class="about-items wow fadeInUp wow" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
                                     <div class="icon">
-                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/check.png" alt="img">
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/05.svg" alt="img">
                                     </div>
                                     <div class="content">
                                         <h5>
-                                            Easy Booking <br> System
+                                            Exclusive Trip
                                         </h5>
+                                        <p>
+                                            There are many variations of passages <br> of available, but the majority
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="text">
-                                    <p>
-                                        Our hotel also prides itself on <br> offering exceptional services.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="about-items wow fadeInUp wow" data-wow-delay=".5s">
-                                <div class="about-icon-items">
+                                <div class="about-items wow fadeInUp wow" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
                                     <div class="icon">
-                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/check.png" alt="img">
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/06.svg" alt="img">
                                     </div>
                                     <div class="content">
                                         <h5>
-                                            Easy Booking <br> System
+                                            Safety first always
                                         </h5>
+                                        <p>
+                                            There are many variations of passages <br> of available, but the majority
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="text">
-                                    <p>
-                                        Our hotel also prides itself on <br> offering exceptional services.
-                                    </p>
+                                <div class="about-items wow fadeInUp wow" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                                    <div class="icon">
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/07.svg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <h5>
+                                            Professional Guide
+                                        </h5>
+                                        <p>
+                                            There are many variations of passages <br> of available, but the majority
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <a href="tour-details.html" class="theme-btn wow fadeInUp wow" data-wow-delay=".7s">Discover
-                                More<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

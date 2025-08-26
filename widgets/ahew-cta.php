@@ -44,6 +44,34 @@ class AHEW_Cta extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        echo '<h2>' . esc_html( $settings['title'] ) . '</h2>';
+        ?>
+<section class="cta-bg-section fix bg-cover" style="background-image: url(<?php echo get_template_directory_uri();?>/assets/img/cta-bg.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="cta-wrapper">
+                    <div class="section-title text-center">
+                        <span class="sub-title text-white wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                            Watch Our Story
+                        </span>
+                        <h2 class="text-white wow fadeInUp wow" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                            We Provide the Best Tour <br>
+                            Facilities
+                        </h2>
+                    </div>
+                    <div class="cta-btn wow fadeInUp wow" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                        <a href="tour-details.html" class="theme-btn">Find Out More<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        <div class="watch-btn">
+                            <a href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" data-delay=".7s" class="video-btn video-popup">
+                                <i class="fa-duotone fa-play"></i></a>
+                            <h6>
+                                Watch Video
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <?php 
     }
 }

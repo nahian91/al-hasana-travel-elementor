@@ -22,122 +22,136 @@ class AHEW_Team extends \Elementor\Widget_Base {
     }
 
     protected function register_controls() {
-        $this->start_controls_section(
-            'content_section',
-            [
-                'label' => __( 'Content', 'al-hasana-elementor-widget' ),
-                'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-        );
+    $this->start_controls_section(
+        'ahew_team_content_section',
+        [
+            'label' => __( 'Team Member Content', 'al-hasana-elementor-widget' ),
+            'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+        ]
+    );
 
-        $this->add_control(
-            'title',
-            [
-                'label'   => __( 'Title', 'al-hasana-elementor-widget' ),
-                'type'    => \Elementor\Controls_Manager::TEXT,
-                'default' => __( 'Hello World from Widget 1', 'al-hasana-elementor-widget' ),
-            ]
-        );
+    // Team Image
+    $this->add_control(
+        'ahew_team_image',
+        [
+            'label'   => __( 'Team Image', 'al-hasana-elementor-widget' ),
+            'type'    => \Elementor\Controls_Manager::MEDIA,
+            'default' => [
+                'url' => \Elementor\Utils::get_placeholder_image_src(),
+            ],
+        ]
+    );
 
-        $this->end_controls_section();
-    }
+    // Title
+    $this->add_control(
+        'ahew_team_title',
+        [
+            'label'   => __( 'Name', 'al-hasana-elementor-widget' ),
+            'type'    => \Elementor\Controls_Manager::TEXT,
+            'default' => __( 'John Doe', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    // Designation
+    $this->add_control(
+        'ahew_team_designation',
+        [
+            'label'   => __( 'Designation', 'al-hasana-elementor-widget' ),
+            'type'    => \Elementor\Controls_Manager::TEXT,
+            'default' => __( 'CEO', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    // Facebook
+    $this->add_control(
+        'ahew_facebook_link',
+        [
+            'label'       => __( 'Facebook URL', 'al-hasana-elementor-widget' ),
+            'type'        => \Elementor\Controls_Manager::URL,
+            'placeholder' => __( 'https://facebook.com/', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    // Twitter
+    $this->add_control(
+        'ahew_twitter_link',
+        [
+            'label'       => __( 'Twitter URL', 'al-hasana-elementor-widget' ),
+            'type'        => \Elementor\Controls_Manager::URL,
+            'placeholder' => __( 'https://twitter.com/', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    // LinkedIn
+    $this->add_control(
+        'ahew_linkedin_link',
+        [
+            'label'       => __( 'LinkedIn URL', 'al-hasana-elementor-widget' ),
+            'type'        => \Elementor\Controls_Manager::URL,
+            'placeholder' => __( 'https://linkedin.com/', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    // Instagram
+    $this->add_control(
+        'ahew_instagram_link',
+        [
+            'label'       => __( 'Instagram URL', 'al-hasana-elementor-widget' ),
+            'type'        => \Elementor\Controls_Manager::URL,
+            'placeholder' => __( 'https://instagram.com/', 'al-hasana-elementor-widget' ),
+        ]
+    );
+
+    $this->end_controls_section();
+}
+
 
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $ahew_image       = $settings['ahew_team_image']['url'];
+        $ahew_title       = $settings['ahew_team_title'];
+        $ahew_designation = $settings['ahew_team_designation'];
+        $ahew_facebook    = $settings['ahew_facebook_link']['url'];
+        $ahew_twitter     = $settings['ahew_twitter_link']['url'];
+        $ahew_linkedin    = $settings['ahew_linkedin_link']['url'];
+        $ahew_instagram   = $settings['ahew_instagram_link']['url'];
+
         ?>
-             <!-- Team Section Start -->
-    <section class="team-section fix section-padding">
-        <div class="container">
-            <div class="section-title text-center">
-                <span class="sub-title wow fadeInUp">
-                    Meet with Guide
-                </span>
-                <h2 class="wow fadeInUp wow" data-wow-delay=".2s">Tour Guide</h2>
-            </div>
-            <div class="row">
-                <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".2s">
-                    <div class="team-card-item">
-                        <div class="team-image">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/team/01.jpg" alt="img">
-                        </div>
-                        <div class="team-content">
-                            <h4><a href="team-details.html">Darlene Robertson</a></h4>
-                            <p>Tourist Guide</p>
-                            <div class="social-profile">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                </ul>
-                                <span class="plus-btn"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".4s">
-                    <div class="team-card-item">
-                        <div class="team-image">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/team/02.jpg" alt="img">
-                        </div>
-                        <div class="team-content">
-                            <h4><a href="team-details.html">Leslie Alexander</a></h4>
-                            <p>Tourist Guide</p>
-                            <div class="social-profile">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                </ul>
-                                <span class="plus-btn"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".6s">
-                    <div class="team-card-item">
-                        <div class="team-image">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/team/03.jpg" alt="img">
-                        </div>
-                        <div class="team-content">
-                            <h4><a href="team-details.html">Ralph Edwards</a></h4>
-                            <p>Tourist Guide</p>
-                            <div class="social-profile">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                </ul>
-                                <span class="plus-btn"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".8s">
-                    <div class="team-card-item">
-                        <div class="team-image">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/team/04.jpg" alt="img">
-                        </div>
-                        <div class="team-content">
-                            <h4><a href="team-details.html">Kathryn Murphy</a></h4>
-                            <p>Tourist Guide</p>
-                            <div class="social-profile">
-                                <ul>
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                </ul>
-                                <span class="plus-btn"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="team-card-item">
+        <div class="team-image">
+            <?php if ( $ahew_image ) : ?>
+                <img src="<?php echo esc_url( $ahew_image ); ?>" alt="<?php echo esc_attr( $ahew_title ); ?>">
+            <?php endif; ?>
+        </div>
+
+        <div class="team-content">
+            <?php if ( $ahew_title ) : ?>
+                <h4><?php echo esc_html( $ahew_title ); ?></h4>
+            <?php endif; ?>
+
+            <?php if ( $ahew_designation ) : ?>
+                <p><?php echo esc_html( $ahew_designation ); ?></p>
+            <?php endif; ?>
+
+            <div class="social-profile">
+                <ul>
+                    <?php if ( $ahew_facebook ) : ?>
+                        <li><a href="<?php echo esc_url( $ahew_facebook ); ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <?php endif; ?>
+                    <?php if ( $ahew_twitter ) : ?>
+                        <li><a href="<?php echo esc_url( $ahew_twitter ); ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <?php endif; ?>
+                    <?php if ( $ahew_linkedin ) : ?>
+                        <li><a href="<?php echo esc_url( $ahew_linkedin ); ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                    <?php endif; ?>
+                    <?php if ( $ahew_instagram ) : ?>
+                        <li><a href="<?php echo esc_url( $ahew_instagram ); ?>" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <?php endif; ?>
+                </ul>
+                <span class="plus-btn"><i class="fas fa-share-alt"></i></span>
             </div>
         </div>
-    </section>
+    </div>
         <?php 
     }
 }

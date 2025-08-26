@@ -45,44 +45,31 @@ class AHEW_Counter extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-                <!-- Counter-Section Start -->
-    <section class="counter-section theme-bg fix section-bg-3">
+              <section class="counter-section theme-bg fix">
         <div class="container">
-            <div class="counter-wrapper-3">
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".2s">
-                    <div class="icon">
-                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/35.svg" alt="img">
-                    </div>
+            <div class="counter-wrapper">
+                <div class="counter-items wow fadeInUp wow" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                     <div class="counter-content">
-                        <h2><span class="count">100,000</span>+</h2>
-                        <p>Our Explorers</p>
+                        <h2><span class="count">26</span>+</h2>
+                        <p>Years Experiences</p>
                     </div>
                 </div>
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".4s">
-                    <div class="icon">
-                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/36.svg" alt="img">
-                    </div>
+                <div class="counter-items wow fadeInUp wow" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                     <div class="counter-content">
-                        <h2><span class="count">5,000</span>+</h2>
-                        <p>Destinations</p>
+                        <h2><span class="count">3</span>.6+</h2>
+                        <p>Yearly Customers</p>
                     </div>
                 </div>
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".6s">
-                    <div class="icon">
-                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/37.svg" alt="img">
-                    </div>
+                <div class="counter-items wow fadeInUp wow" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
                     <div class="counter-content">
-                        <h2><span class="count">10,000</span>+</h2>
-                        <p>More Trips</p>
+                        <h2><span class="count">46</span>+</h2>
+                        <p>Visitors daily</p>
                     </div>
                 </div>
-                <div class="counter-items style-2 wow fadeInUp wow" data-wow-delay=".8s">
-                    <div class="icon">
-                        <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/38.svg" alt="img">
-                    </div>
+                <div class="counter-items style-2 wow fadeInUp wow" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
                     <div class="counter-content">
-                        <h2><span class="count">2,000</span>+</h2>
-                        <p>Luxary Hotel</p>
+                        <h2><span class="count">56</span>+</h2>
+                        <p>Awards &amp; honors</p>
                     </div>
                 </div>
             </div>
