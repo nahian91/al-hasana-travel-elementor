@@ -118,7 +118,7 @@ class AHEW_Testimonials extends \Elementor\Widget_Base {
                                                 $rating = ! empty( $item['rating'] ) ? intval( $item['rating'] ) : 5;
                                                 for ( $i = 1; $i <= 5; $i++ ) {
                                                     if ( $i <= $rating ) {
-                                                        echo '<i class="fas fa-star"></i>';
+                                                        echo '<i class="fa-regular fa-star"></i>';
                                                     } else {
                                                         echo '<i class="fa-regular fa-star"></i>';
                                                     }
