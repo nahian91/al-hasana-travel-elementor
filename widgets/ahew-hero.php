@@ -47,7 +47,7 @@ class AHEW_Hero extends \Elementor\Widget_Base {
         ?>
                <!-- hero-2-Section Start -->
     <section class="hero-section-2">
-        <div class="hero-2 bg-cover" style="background-image: url(<?php echo get_template_directory_uri();?>/assets/img/hero/02.png);">
+        <div class="hero-2 bg-cover" style="background-image: url(<?php echo get_template_directory_uri();?>/assets/img/hero/02.jpg);">
             <div class="container custom-container-3">
                 <div class="row">
                     <div class="col-lg-6">
