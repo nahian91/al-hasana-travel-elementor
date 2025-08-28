@@ -145,7 +145,7 @@ $viewall_link = $settings['ahew_viewall_link']['url'];
                                         <div class="destination-content">
                                             <ul class="meta">
                                                 <li>
-                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <i class="fa-regular fa-location-dot"></i>
                                                     <?php echo esc_html($tour_location); ?>
                                                 </li>
                                             </ul>
@@ -160,14 +160,14 @@ $viewall_link = $settings['ahew_viewall_link']['url'];
                                                     <?php echo esc_html($tour_days); ?>
                                                 </li>
                                                 <li>
-                                                    <i class="fa-solid fa-users"></i>
+                                                    <i class="fa-regular fa-users"></i>
                                                     <?php echo esc_html($tour_peoples); ?>
                                                 </li>
                                             </ul>
                                             <div class="price">
                                                 <h6>৳<?php echo esc_html($tour_price); ?></h6>
                                                 <a href="<?php the_permalink(); ?>" class="theme-btn style-2">
-                                                    View Details <i class="fa-solid fa-arrow-right"></i>
+                                                    View Details <i class="fa-regular fa-arrow-right"></i>
                                                 </a>
                                             </div>
                                         </div>

@@ -70,7 +70,7 @@ class AHEW_Breadcumb extends \Elementor\Widget_Base {
                             <li>
                                 <a href="index.html">Home</a>
                             </li>
-                            <li><i class="fa-solid fa-chevrons-right"></i></li>
+                            <li><i class="fa-regular fa-chevrons-right"></i></li>
                             <li><?php echo $ahew_breadcumb_title;?></li>
                         </ul>
                     </div>

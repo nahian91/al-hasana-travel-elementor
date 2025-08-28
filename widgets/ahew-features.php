@@ -141,7 +141,7 @@ class AHEW_Features extends \Elementor\Widget_Base {
                                                     </div>
                                                 </div>
                                                 <ul class="circle-icon">
-                                                    <li><i class="fa-solid fa-badge-check"></i></li>
+                                                    <li><i class="fa-regular fa-badge-check"></i></li>
                                                     <li><?php echo nl2br( esc_html( $item['ahew_feature_description'] ) ); ?></li>
                                                 </ul>
                                             </div>

@@ -65,7 +65,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -108,7 +108,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -151,7 +151,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -194,7 +194,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -237,7 +237,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -280,7 +280,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -323,7 +323,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
@@ -366,7 +366,7 @@ class AHEW_Destination extends \Elementor\Widget_Base {
                                 </li>
                                 <li class="rating">
                                     <div class="star">
-                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
                                     <p>4.7</p>
                                 </li>
