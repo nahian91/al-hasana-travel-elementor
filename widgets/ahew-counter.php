@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AHEW_Counter extends \Elementor\Widget_Base {
 
     public function get_name() {
-        return 'ahew-counter';
+        return 'ahew_counter';
     }
 
     public function get_title() {
@@ -14,7 +14,7 @@ class AHEW_Counter extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-counter'; // Elementor default icon
+        return 'eicon-counter';
     }
 
     public function get_categories() {
@@ -22,20 +22,73 @@ class AHEW_Counter extends \Elementor\Widget_Base {
     }
 
     protected function register_controls() {
+
         $this->start_controls_section(
-            'content_section',
+            'ahew_content_section',
             [
-                'label' => __( 'Content', 'al-hasana-elementor-widget' ),
+                'label' => __( 'Counters', 'al-hasana-elementor-widget' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
 
-        $this->add_control(
-            'title',
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'ahew_number',
             [
-                'label'   => __( 'Title', 'al-hasana-elementor-widget' ),
+                'label'   => __( 'Number', 'al-hasana-elementor-widget' ),
                 'type'    => \Elementor\Controls_Manager::TEXT,
-                'default' => __( 'Hello World from Widget 1', 'al-hasana-elementor-widget' ),
+                'default' => __( '100', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'ahew_suffix',
+            [
+                'label'   => __( 'Suffix (e.g. +, %, k)', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXT,
+                'default' => __( '+', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'ahew_label',
+            [
+                'label'   => __( 'Label', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Years Experience', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $this->add_control(
+            'ahew_counters',
+            [
+                'label'       => __( 'Counter Items', 'al-hasana-elementor-widget' ),
+                'type'        => \Elementor\Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'default'     => [
+                    [
+                        'ahew_number' => '26',
+                        'ahew_suffix' => '+',
+                        'ahew_label'  => 'Years Experiences',
+                    ],
+                    [
+                        'ahew_number' => '3.6',
+                        'ahew_suffix' => 'k+',
+                        'ahew_label'  => 'Yearly Customers',
+                    ],
+                    [
+                        'ahew_number' => '46',
+                        'ahew_suffix' => '+',
+                        'ahew_label'  => 'Visitors daily',
+                    ],
+                    [
+                        'ahew_number' => '56',
+                        'ahew_suffix' => '+',
+                        'ahew_label'  => 'Awards & honors',
+                    ],
+                ],
+                'title_field' => '{{{ ahew_label }}}',
             ]
         );
 
@@ -45,36 +98,19 @@ class AHEW_Counter extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-              <section class="counter-section theme-bg fix">
-        <div class="container">
-            <div class="counter-wrapper">
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+        <div class="counter-wrapper">
+            <?php foreach ( $settings['ahew_counters'] as $index => $item ) : ?>
+                <div class="counter-items wow fadeInUp" data-wow-delay=".<?php echo esc_attr( ( $index + 1 ) * 2 ); ?>s">
                     <div class="counter-content">
-                        <h2><span class="count">26</span>+</h2>
-                        <p>Years Experiences</p>
+                        <h2>
+                            <span class="count"><?php echo esc_html( $item['ahew_number'] ); ?></span>
+                            <?php echo esc_html( $item['ahew_suffix'] ); ?>
+                        </h2>
+                        <p><?php echo esc_html( $item['ahew_label'] ); ?></p>
                     </div>
                 </div>
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-                    <div class="counter-content">
-                        <h2><span class="count">3</span>.6+</h2>
-                        <p>Yearly Customers</p>
-                    </div>
-                </div>
-                <div class="counter-items wow fadeInUp wow" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
-                    <div class="counter-content">
-                        <h2><span class="count">46</span>+</h2>
-                        <p>Visitors daily</p>
-                    </div>
-                </div>
-                <div class="counter-items style-2 wow fadeInUp wow" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
-                    <div class="counter-content">
-                        <h2><span class="count">56</span>+</h2>
-                        <p>Awards &amp; honors</p>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-    </section>
-        <?php 
+        <?php
     }
 }

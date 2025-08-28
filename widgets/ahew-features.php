@@ -14,7 +14,7 @@ class AHEW_Features extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-star'; // Elementor default icon
+        return 'eicon-star';
     }
 
     public function get_categories() {
@@ -22,8 +22,9 @@ class AHEW_Features extends \Elementor\Widget_Base {
     }
 
     protected function register_controls() {
+
         $this->start_controls_section(
-            'content_section',
+            'ahew_features_content_section',
             [
                 'label' => __( 'Content', 'al-hasana-elementor-widget' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
@@ -31,11 +32,68 @@ class AHEW_Features extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
-            'title',
+            'ahew_features_subtitle',
+            [
+                'label'   => __( 'Subtitle', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Are you ready to travel?', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $this->add_control(
+            'ahew_features_title',
             [
                 'label'   => __( 'Title', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXTAREA,
+                'default' => __( 'World Leading Online Tour Booking Platform', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $this->add_control(
+            'ahew_features_description',
+            [
+                'label'   => __( 'Description', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXTAREA,
+                'default' => __( "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.", 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        // Repeater for feature items
+        $repeater = new \Elementor\Repeater();
+
+        $repeater->add_control(
+            'ahew_feature_icon',
+            [
+                'label' => __( 'Feature Icon', 'al-hasana-elementor-widget' ),
+                'type'  => \Elementor\Controls_Manager::MEDIA,
+            ]
+        );
+
+        $repeater->add_control(
+            'ahew_feature_title',
+            [
+                'label'   => __( 'Feature Title', 'al-hasana-elementor-widget' ),
                 'type'    => \Elementor\Controls_Manager::TEXT,
-                'default' => __( 'Hello World from Widget 1', 'al-hasana-elementor-widget' ),
+                'default' => __( 'Most Adventure Tour Ever', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $repeater->add_control(
+            'ahew_feature_description',
+            [
+                'label'   => __( 'Feature Description', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::TEXTAREA,
+                'default' => __( 'There are many variations of passages of available,', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        $this->add_control(
+            'ahew_features_items',
+            [
+                'label'       => __( 'Feature Items', 'al-hasana-elementor-widget' ),
+                'type'        => \Elementor\Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'title_field' => '{{{ ahew_feature_title }}}',
             ]
         );
 
@@ -45,95 +103,67 @@ class AHEW_Features extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-             <!-- Travel-Feature-Section Start -->
-    <section class="travel-feature-section section-padding fix section-bg">
-        <div class="shape-1">
-            <img src="<?php echo get_template_directory_uri();?>/assets/img/plane-shape1.png" alt="img">
-        </div>
-        <div class="shape-2">
-            <img src="<?php echo get_template_directory_uri();?>/assets/img/plane-shape2.png" alt="img">
-        </div>
-        <div class="container">
-            <div class="feature-wrapper">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="feature-content">
-                            <div class="section-title">
-                                <span class="sub-title wow fadeInUp">
-                                    Are you ready to travel?
-                                </span>
-                                <h2 class="wow fadeInUp wow" data-wow-delay=".2s">
-                                    World Leading Online Tour Booking Platform
-                                </h2>
-                            </div>
-                            <p class="wow fadeInUp wow" data-wow-delay=".3s">
-                                There are many variations of passages of Lorem Ipsum available, but the majority have
-                                suffered alteration in some form, by injected humour, or randomised words which don't
-                                look even slightly believable.
-                            </p>
-                            <div class="feature-area">
-                                <div class="line-shape">
-                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/line-shape.png" alt="img">
+        <section class="travel-feature-section section-padding fix section-bg">
+            <div class="shape-1">
+                <img src="<?php echo get_template_directory_uri();?>/assets/img/plane-shape1.png" alt="img">
+            </div>
+            <div class="shape-2">
+                <img src="<?php echo get_template_directory_uri();?>/assets/img/plane-shape2.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="feature-wrapper">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="feature-content">
+                                <div class="section-title">
+                                    <span class="sub-title wow fadeInUp"><?php echo esc_html( $settings['ahew_features_subtitle'] ); ?></span>
+                                    <h2 class="wow fadeInUp" data-wow-delay=".2s"><?php echo nl2br( esc_html( $settings['ahew_features_title'] ) ); ?></h2>
                                 </div>
-                                <div class="feature-items wow fadeInUp wow" data-wow-delay=".5s">
-                                    <div class="feature-icon-item">
-                                        <div class="icon">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/08.svg" alt="img">
-                                        </div>
-                                        <div class="content">
-                                            <h5>
-                                                Most Adventure <Br>
-                                                Tour Ever
-                                            </h5>
-                                        </div>
+                                <p class="wow fadeInUp" data-wow-delay=".3s"><?php echo nl2br( esc_html( $settings['ahew_features_description'] ) ); ?></p>
+
+                                <div class="feature-area">
+                                    <div class="line-shape">
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/line-shape.png" alt="img">
                                     </div>
-                                    <ul class="circle-icon">
-                                        <li>
-                                            <i class="fa-solid fa-badge-check"></i>
-                                        </li>
-                                        <li>
-                                            There are many variations of <br>
-                                            passages of available,
-                                        </li>
-                                    </ul>
+
+                                    <?php if ( ! empty( $settings['ahew_features_items'] ) ) : ?>
+                                        <?php $delay = 0.5; ?>
+                                        <?php foreach ( $settings['ahew_features_items'] as $item ) : ?>
+                                            <div class="feature-items wow fadeInUp" data-wow-delay="<?php echo esc_attr($delay); ?>s">
+                                                <div class="feature-icon-item">
+                                                    <div class="icon">
+                                                        <?php if ( ! empty( $item['ahew_feature_icon']['url'] ) ) : ?>
+                                                            <img src="<?php echo esc_url( $item['ahew_feature_icon']['url'] ); ?>" alt="img">
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h5><?php echo esc_html( $item['ahew_feature_title'] ); ?></h5>
+                                                    </div>
+                                                </div>
+                                                <ul class="circle-icon">
+                                                    <li><i class="fa-solid fa-badge-check"></i></li>
+                                                    <li><?php echo nl2br( esc_html( $item['ahew_feature_description'] ) ); ?></li>
+                                                </ul>
+                                            </div>
+                                            <?php $delay += 0.2; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </div>
-                                <div class="feature-items wow fadeInUp wow" data-wow-delay=".7s">
-                                    <div class="feature-icon-item">
-                                        <div class="icon">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/09.svg" alt="img">
-                                        </div>
-                                        <div class="content">
-                                            <h5>
-                                                Real Tour Starts <br>
-                                                from Here
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <ul class="circle-icon">
-                                        <li>
-                                            <i class="fa-solid fa-badge-check"></i>
-                                        </li>
-                                        <li>
-                                            There are many variations of <br>
-                                            passages of available,
-                                        </li>
-                                    </ul>
-                                </div>
+
+                                <a href="contact.html" class="theme-btn wow fadeInUp" data-wow-delay=".9s">
+                                    Contact US <i class="fa-sharp fa-regular fa-arrow-right"></i>
+                                </a>
                             </div>
-                            <a href="contact.html" class="theme-btn wow fadeInUp wow" data-wow-delay=".9s">Contact US<i
-                                    class="fa-sharp fa-regular fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="feature-image wow fadeInUp wow" data-wow-delay=".3s">
-                            <img src="<?php echo get_template_directory_uri();?>/assets/img/man-image.png" alt="img">
+                        <div class="col-lg-6">
+                            <div class="feature-image wow fadeInUp" data-wow-delay=".3s">
+                                <img src="<?php echo get_template_directory_uri();?>/assets/img/man-image.png" alt="img">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-        <?php 
+        </section>
+        <?php
     }
 }

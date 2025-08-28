@@ -66,17 +66,12 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                             </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="best-price-section mb-0">
+                    <div class="col-lg-6">
+                         <div class="best-price-section mb-0">
             <div class="container custom-container-3">
                 <div class="hero-bottom">
                     <div class="row">
                         <div class="best-price-wrapper">
-                            <div class="content wow fadeInUp" data-wow-delay=".3s">
-                                <h2>Find The Best Place</h2>
-                            </div>
                             <ul class="nav">
                                 <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
                                     <a href="#thumb1" data-bs-toggle="tab" class="nav-link">
@@ -281,6 +276,11 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                 </div>
             </div>
         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
     </section>
         <?php 
     }

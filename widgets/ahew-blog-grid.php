@@ -45,178 +45,64 @@ class AHEW_Blog_Grid extends \Elementor\Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         ?>
-             <!-- News-Section Start -->
-        <section class="news-section section-padding fix">
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/08.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        The Surfing man Will Blow Your Mind
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".5s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/09.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        Supervisor Disapproved Of Latest Work
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".7s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/10.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        Get Best Advertiser In Your Side Pocket
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/11.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        The Surfing man Will Blow Your Mind
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".5s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/12.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        Supervisor Disapproved Of Latest Work
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".7s">
-                        <div class="news-card-items-3 mt-0">
-                            <div class="news-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/news/13.jpg" alt="img">
-                            </div>
-                            <div class="news-content">
-                                <ul class="post-meta">
-                                    <li class="post">26<span>Nov</span></li>
-                                    <li>
-                                        <i class="fa-regular fa-user"></i>
-                                        By Admin
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-tag"></i>
-                                        Travel
-                                    </li>
-                                </ul>
-                                <h4>
-                                    <a href="news-details.html">
-                                        Get Best Advertiser In Your Side Pocket
-                                    </a>
-                                </h4>
-                                <a href="news-details.html" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="page-nav-wrap text-center">
-                    <ul>
-                        <li><a class="page-numbers" href="#"><i class="fal fa-long-arrow-left"></i></a></li>
-                        <li><a class="page-numbers" href="#">01</a></li>
-                        <li><a class="page-numbers" href="#">02</a></li>
-                        <li><a class="page-numbers" href="#">03</a></li>
-                        <li><a class="page-numbers" href="#"><i class="fal fa-long-arrow-right"></i></a></li>
-                    </ul>
-                </div>
+        <div class="section-title text-center">
+                <span class="sub-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                    Blog & Tips
+                </span>
+                <h2 class="wow fadeInUp wow" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    Travel Tips and Blog
+                </h2>
             </div>
-        </section>
+        <div class="row g-4">
+            <?php
+            $args = array(
+                'post_type'      => 'post',
+                'posts_per_page' => 3, // Number of posts per page
+                'paged'          => get_query_var('paged') ? get_query_var('paged') : 1,
+            );
+            $loop = new WP_Query($args);
+
+            if ($loop->have_posts()) :
+                while ($loop->have_posts()) : $loop->the_post();
+            ?>
+                <div class="col-xl-4 col-md-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="news-card-items-3 mt-0">
+                        <div class="news-image">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php the_post_thumbnail('medium', ['alt' => get_the_title()]); ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <div class="news-content">
+                            <ul class="post-meta">
+                                <li class="post"><?php echo get_the_date('d'); ?><span><?php echo get_the_date('M'); ?></span></li>
+                                <li>
+                                    <i class="fa-regular fa-user"></i>
+                                    By <?php the_author(); ?>
+                                </li>
+                                <li>
+                                    <i class="fa-regular fa-tag"></i>
+                                    <?php the_category(', '); ?>
+                                </li>
+                            </ul>
+                            <h4>
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php the_title(); ?>
+                                </a>
+                            </h4>
+							<?php the_excerpt();?>
+                            <a href="<?php the_permalink(); ?>" class="link-btn">Read More <i class="fa-sharp fa-regular fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+
+        <?php wp_reset_postdata(); ?>
+        <?php else : ?>
+            <p>No posts found.</p>
+        <?php endif; ?>
         <?php 
     }
 }
