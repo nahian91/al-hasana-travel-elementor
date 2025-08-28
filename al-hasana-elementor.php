@@ -86,7 +86,6 @@ function ahew_register_widgets( $widgets_manager ) {
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-team.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-contact-info.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-blog-grid.php';
-    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-tours.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-cta.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-testimonials.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-hero.php';
@@ -105,7 +104,6 @@ function ahew_register_widgets( $widgets_manager ) {
     $widgets_manager->register( new \AHEW_Breadcumb() );
     $widgets_manager->register( new \AHEW_Contact_Info() );
     $widgets_manager->register( new \AHEW_Blog_Grid() );
-    $widgets_manager->register( new \AHEW_Tours() );
     $widgets_manager->register( new \AHEW_Cta() );
     $widgets_manager->register( new \AHEW_Cta_Two() );
     $widgets_manager->register( new \AHEW_Testimonials() );

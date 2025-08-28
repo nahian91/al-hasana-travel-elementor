@@ -14,7 +14,7 @@ class AHEW_Tour extends \Elementor\Widget_Base {
     }
 
     public function get_icon() {
-        return 'eicon-kit-details'; // Elementor default icon
+        return 'eicon-kit-details';
     }
 
     public function get_categories() {
@@ -23,790 +23,172 @@ class AHEW_Tour extends \Elementor\Widget_Base {
 
     protected function register_controls() {
         $this->start_controls_section(
-            'content_section',
+            'ahew_content_section',
             [
                 'label' => __( 'Content', 'al-hasana-elementor-widget' ),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
 
+        // Inside register_controls()
         $this->add_control(
-            'title',
+            'ahew_section_subtitle',
             [
-                'label'   => __( 'Title', 'al-hasana-elementor-widget' ),
-                'type'    => \Elementor\Controls_Manager::TEXT,
-                'default' => __( 'Hello World from Widget 1', 'al-hasana-elementor-widget' ),
+                'label' => __( 'Section Subtitle', 'al-hasana-elementor-widget' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Blog & Tips', 'al-hasana-elementor-widget' ),
             ]
         );
+
+        $this->add_control(
+            'ahew_section_title',
+            [
+                'label' => __( 'Section Title', 'al-hasana-elementor-widget' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => __( 'Travel Tips and Blog', 'al-hasana-elementor-widget' ),
+            ]
+        );
+
+        // Get all tour categories
+        $categories = get_terms([
+            'taxonomy'   => 'tour_category',
+            'hide_empty' => false,
+        ]);
+
+        $cat_options = [];
+        if (!is_wp_error($categories) && !empty($categories)) {
+            foreach ($categories as $cat) {
+                $cat_options[$cat->slug] = $cat->name;
+            }
+        }
+
+        // Tour category select
+        $this->add_control(
+            'ahew_tour_category',
+            [
+                'label'   => __( 'Select Tour Category', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::SELECT,
+                'options' => $cat_options,
+                'default' => !empty($cat_options) ? array_key_first($cat_options) : '',
+            ]
+        );
+
+        // Inside register_controls()
+$this->add_control(
+    'ahew_viewall_text',
+    [
+        'label' => __( 'View All Button Text', 'al-hasana-elementor-widget' ),
+        'type' => \Elementor\Controls_Manager::TEXT,
+        'default' => __( 'View All', 'al-hasana-elementor-widget' ),
+    ]
+);
+
+$this->add_control(
+    'ahew_viewall_link',
+    [
+        'label' => __( 'View All Button URL', 'al-hasana-elementor-widget' ),
+        'type' => \Elementor\Controls_Manager::URL,
+        'placeholder' => __( 'https://your-link.com', 'al-hasana-elementor-widget' ),
+        'default' => [
+            'url' => '#',
+        ],
+    ]
+);
+
 
         $this->end_controls_section();
     }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $subtitle = $settings['ahew_section_subtitle'];
+$title    = $settings['ahew_section_title'];
+        $selected_category = $settings['ahew_tour_category'];
+        $viewall_text = $settings['ahew_viewall_text'];
+$viewall_link = $settings['ahew_viewall_link']['url'];
         ?>
-                 <section class="tour-section section-padding fix">
-            <div class="container custom-container">
+        <div class="section-title text-center">
+    <span class="sub-title wow fadeInUp"><?php echo esc_html($subtitle); ?></span>
+    <h2 class="wow fadeInUp" data-wow-delay=".2s"><?php echo esc_html($title); ?></h2>
+</div>
                 <div class="tour-destination-wrapper">
                     <div class="row g-4">
-                        <div class="col-xl-8">
-                            <div class="row g-4">
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".3s">
+                        <?php
+                        $tours = new WP_Query(array(
+                            'post_type'      => 'tour',
+                            'posts_per_page' => -1,
+                            'tax_query'      => array(
+                                array(
+                                    'taxonomy' => 'tour_category',
+                                    'field'    => 'slug',
+                                    'terms'    => $selected_category,
+                                ),
+                            ),
+                        ));
+
+                        if ($tours->have_posts()) :
+                            while ($tours->have_posts()) : $tours->the_post();
+                                $tour_location = get_field('location');
+                                $tour_days     = get_field('days');
+                                $tour_peoples  = get_field('peoples');
+                                $tour_price    = get_field('price');
+                                ?>
+                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
                                     <div class="destination-card-items mt-0">
                                         <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/01.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
+                                            <?php if (has_post_thumbnail()) : ?>
+                                                <?php the_post_thumbnail('full', array('alt' => get_the_title())); ?>
+                                            <?php else: ?>
+                                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/news/default.jpg'); ?>" alt="default">
+                                            <?php endif; ?>
                                         </div>
                                         <div class="destination-content">
                                             <ul class="meta">
                                                 <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <?php echo esc_html($tour_location); ?>
                                                 </li>
                                             </ul>
                                             <h5>
-                                                <a href="tour-details.html">
-                                                    Brooklyn Beach Resort Tour
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <?php the_title(); ?>
                                                 </a>
                                             </h5>
                                             <ul class="info">
                                                 <li>
                                                     <i class="fa-regular fa-clock"></i>
-                                                     10 Days
+                                                    <?php echo esc_html($tour_days); ?>
                                                 </li>
                                                 <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
+                                                    <i class="fa-solid fa-users"></i>
+                                                    <?php echo esc_html($tour_peoples); ?>
                                                 </li>
                                             </ul>
                                             <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".5s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/02.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Pak Chumphon Town Tour 
+                                                <h6>৳<?php echo esc_html($tour_price); ?></h6>
+                                                <a href="<?php the_permalink(); ?>" class="theme-btn style-2">
+                                                    View Details <i class="fa-solid fa-arrow-right"></i>
                                                 </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".7s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/03.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Java & Bali One Life Adventure 
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".3s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/05.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Brooklyn Beach Resort Tour
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".5s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/06.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Pak Chumphon Town Tour 
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".7s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/07.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Brooklyn Beach Resort Tour
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".3s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/04.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="destination-details.html">
-                                                    Java & Bali One Life Adventure
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".5s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/08.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Java & Bali One Life Adventure
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".7s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/tour1.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Java & Bali One Life Adventure
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".3s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/tour2.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Places To Travel In November
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".5s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/tour3.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Places To Travel In November
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp wow" data-wow-delay=".3s">
-                                    <div class="destination-card-items mt-0">
-                                        <div class="destination-image">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/destination/tour4.jpg" alt="img">
-                                            <div class="heart-icon">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </div>
-                                        </div>
-                                        <div class="destination-content">
-                                            <ul class="meta">
-                                                <li>
-                                                    <i class="fa-thin fa-location-dot"></i>
-                                                    Indonesia
-                                                </li>
-                                                <li class="rating">
-                                                    <div class="star">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <p>4.7</p>
-                                                </li>
-                                            </ul>
-                                            <h5>
-                                                <a href="tour-details.html">
-                                                    Places To Travel In November
-                                                </a>
-                                            </h5>
-                                            <ul class="info">
-                                                <li>
-                                                    <i class="fa-regular fa-clock"></i>
-                                                     10 Days
-                                                </li>
-                                                <li>
-                                                    <i class="fa-thin fa-users"></i>
-                                                     50+
-                                                </li>
-                                            </ul>
-                                            <div class="price">
-                                                <h6>$59.00<span>/Per day</span></h6>
-                                                <a href="tour-details.html" class="theme-btn style-2">Book Now<i class="fa-sharp fa-regular fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="page-nav-wrap text-center">
-                                <ul>
-                                    <li><a class="page-numbers" href="#"><i class="fal fa-long-arrow-left"></i></a></li>
-                                    <li><a class="page-numbers" href="#">01</a></li>
-                                    <li><a class="page-numbers" href="#">02</a></li>
-                                    <li><a class="page-numbers" href="#">03</a></li>
-                                    <li><a class="page-numbers" href="#"><i class="fal fa-long-arrow-right"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="main-sidebar mt-0">
-                                <div class="single-sidebar-widget">
-                                    <div class="wid-title">
-                                        <h3>Destination Category</h3>
-                                    </div>
-                                    <div class="categories-list">
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Canada
-                                                </span>
-                                            </span>
-                                            <span class="text-color">04</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Europe
-                                                </span>
-                                            </span>
-                                            <span class="text-color">03</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    France
-                                                </span>
-                                            </span>
-                                            <span class="text-color">05</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Indonesia
-                                                </span>
-                                            </span>
-                                            <span class="text-color">06</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Nepal
-                                                </span>
-                                            </span>
-                                            <span class="text-color">05</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Maldives
-                                                </span>
-                                            </span>
-                                            <span class="text-color">04</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="single-sidebar-widget">
-                                    <div class="wid-title style-2">
-                                        <h3>Destination</h3>
-                                        <i class="fa-solid fa-chevron-down"></i>
-                                    </div>
-                                    <div class="price-range-wrapper">
-                                        <div class="slider-container">
-                                            <!-- Range sliders -->
-                                            <input type="range" id="min-slider" class="slider" min="130" max="500"
-                                                value="130">
-                                            <input type="range" id="max-slider" class="slider" min="130" max="500"
-                                                value="250">
-                                        </div>
-                                        <div class="price-text pt-4 d-flex gap-3">
-                                            <label for="amount">Price:</label>
-                                            <input type="text" id="amount" readonly style="border:0;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-sidebar-widget">
-                                    <div class="wid-title">
-                                        <h3>Activities</h3>
-                                    </div>
-                                    <div class="categories-list">
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Canada
-                                                </span>
-                                            </span>
-                                            <span class="text-color">04</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Europe
-                                                </span>
-                                            </span>
-                                            <span class="text-color">03</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    France
-                                                </span>
-                                            </span>
-                                            <span class="text-color">05</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Indonesia
-                                                </span>
-                                            </span>
-                                            <span class="text-color">06</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Nepal
-                                                </span>
-                                            </span>
-                                            <span class="text-color">05</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Maldives
-                                                </span>
-                                            </span>
-                                            <span class="text-color">04</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="single-sidebar-widget">
-                                    <div class="wid-title style-2">
-                                        <h3>Tour Types</h3>
-                                        <i class="fa-solid fa-chevron-down"></i>
-                                    </div>
-                                    <div class="categories-list">
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Premium
-                                                </span>
-                                            </span>
-                                            <span class="text-color">04</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Luxury 
-                                                </span>
-                                            </span>
-                                            <span class="text-color">03</span>
-                                        </label>
-                                        <label class="checkbox-single d-flex justify-content-between align-items-center">
-                                            <span class="d-flex gap-xl-3 gap-2 align-items-center">
-                                                <span class="checkbox-area d-center">
-                                                    <input type="checkbox" checked="checked">
-                                                    <span class="checkmark d-center"></span>
-                                                </span>
-                                                <span class="text-color">
-                                                    Standard
-                                                </span>
-                                            </span>
-                                            <span class="text-color">05</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <?php endwhile; wp_reset_postdata();
+                        else : ?>
+                            <p><?php esc_html_e('No tours found.', 'al-hasana-elementor-widget'); ?></p>
+                        <?php endif; ?>
                     </div>
+                    <div class="row">
+    <div class="col-md-12">
+        <div class="trou-more-btn text-center">
+            <a href="<?php echo esc_url($viewall_link); ?>" class="theme-btn">
+                <?php echo esc_html($viewall_text); ?>
+                <i class="fa-sharp fa-regular fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
                 </div>
-            </div>
-        </section>
-        <?php 
+        <?php
     }
 }
