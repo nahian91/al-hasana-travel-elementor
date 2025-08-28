@@ -115,7 +115,7 @@ class AHEW_Cta_Two extends \Elementor\Widget_Base {
                             <div class="cta-box-items <?php echo esc_attr($box['ahew_cta_style']); ?>">
                                 <div class="cta-content">
                                     <?php if ( ! empty( $box['ahew_cta_title'] ) ) : ?>
-                                        <h3><?php echo nl2br( esc_html( $box['ahew_cta_title'] ) ); ?></h3>
+                                        <h3><?php echo  $box['ahew_cta_title']; ?></h3>
                                     <?php endif; ?>
                                     <?php if ( ! empty( $box['ahew_cta_button_text'] ) && ! empty( $box['ahew_cta_button_url']['url'] ) ) : ?>
                                         <a href="<?php echo esc_url( $box['ahew_cta_button_url']['url'] ); ?>" class="theme-btn">
