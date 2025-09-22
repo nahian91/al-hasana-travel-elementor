@@ -68,7 +68,7 @@ class AHEW_Breadcumb extends \Elementor\Widget_Base {
                         <h2><?php echo $ahew_breadcumb_title;?></h2>
                         <ul class="breadcrumb-list">
                             <li>
-                                <a href="index.html">Home</a>
+                                <a href="<?php echo site_url();?>">Home</a>
                             </li>
                             <li><i class="fa-regular fa-chevrons-right"></i></li>
                             <li><?php echo $ahew_breadcumb_title;?></li>
