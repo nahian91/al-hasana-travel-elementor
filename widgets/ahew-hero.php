@@ -52,15 +52,30 @@ class AHEW_Hero extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_control(
+         $this->add_control(
             'description',
             [
-                'label'   => __( 'Description', 'al-hasana-elementor-widget' ),
-                'type'    => \Elementor\Controls_Manager::TEXTAREA,
-                'default' => __( "There are many variations of passages available, but the majority have suffered alteration in some form.", 'al-hasana-elementor-widget' ),
+                'label'       => __( 'Description', 'al-hasana-elementor-widget' ),
+                'type'        => \Elementor\Controls_Manager::TEXTAREA,
                 'label_block' => true,
             ]
         );
+
+        $this->add_control(
+            'link',
+            [
+                'label'       => __( 'Link', 'al-hasana-elementor-widget' ),
+                'type'        => \Elementor\Controls_Manager::URL,
+                'placeholder' => __( 'https://your-link.com', 'al-hasana-elementor-widget' ),
+                'default'     => [
+                    'url'         => '',
+                    'is_external' => false,
+                    'nofollow'    => false,
+                ],
+                'label_block' => true,
+            ]
+        );
+
 
         $this->add_control(
             'background_image',
@@ -130,8 +145,14 @@ class AHEW_Hero extends \Elementor\Widget_Base {
 
                                 <?php if ( !empty($settings['description']) ) : ?>
                                     <p class="wow fadeInUp" data-wow-delay=".5s">
-                                        <?php echo esc_html($settings['description']); ?>
+                                        <?php echo $settings['description']; ?>
                                     </p>
+                                <?php endif; ?>
+
+                                <?php if ( !empty($settings['link']['url']) ) : ?>
+                                    <button type="submit" class="theme-btn w-100">
+                                        <a href="<?php echo esc_url($settings['link']['url']); ?>">Book Appointment</a>
+                                    </button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -142,19 +163,28 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                     <div class="row">
                                         <div class="best-price-wrapper">
                                             <ul class="nav">
-                                                <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
-                                                    <a href="#thumb4" data-bs-toggle="tab" class="nav-link active">GAMCA Slip</a>
-                                                </li>
-                                                <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
-                                                    <a href="#thumb1" data-bs-toggle="tab" class="nav-link">Tour</a>
-                                                </li>
-                                                <li class="nav-item wow fadeInUp" data-wow-delay=".5s">
-                                                    <a href="#thumb2" data-bs-toggle="tab" class="nav-link">Visa</a>
-                                                </li>
-                                                <li class="nav-item wow fadeInUp" data-wow-delay=".7s">
-                                                    <a href="#thumb3" data-bs-toggle="tab" class="nav-link">Hotel</a>
-                                                </li>
-                                            </ul>
+    <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
+        <a href="#thumb4" data-bs-toggle="tab" class="nav-link active">
+            <i class="fa-regular fa-paper-plane"></i> Air Ticket
+        </a>
+    </li>
+    <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
+        <a href="#thumb1" data-bs-toggle="tab" class="nav-link">
+            <i class="fa-regular fa-map"></i> Tour
+        </a>
+    </li>
+    <li class="nav-item wow fadeInUp" data-wow-delay=".5s">
+        <a href="#thumb2" data-bs-toggle="tab" class="nav-link">
+            <i class="fa-regular fa-id-card"></i> Visa
+        </a>
+    </li>
+    <li class="nav-item wow fadeInUp" data-wow-delay=".7s">
+        <a href="#thumb3" data-bs-toggle="tab" class="nav-link">
+            <i class="fa-regular fa-building"></i> Hotel
+        </a>
+    </li>
+</ul>
+
                                         </div>
 
                                         <div class="tab-content">
@@ -162,14 +192,93 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                             <!-- GAMCA Form -->
                                             <div id="thumb4" class="tab-pane fade show active">
                                                 <div class="comment-form-wrap gtamca-form">
-                                                    <h4>GAMCA / Wafid Medical Appointment Booking</h4>
-                                                    <p><strong>Registration Fee: ৳1500/-</strong></p>
-                                                    <p>Complete your <strong>GAMCA Medical</strong> to travel from Bangladesh to <strong>Saudi Arabia, Kuwait, Oman, Bahrain, and the UAE</strong>. Quickly book your appointment online at an approved center with ease.</p>
-                                                    <div class="form-clt">
-                                                        <button type="submit" class="theme-btn w-100">
-                                                            <a href="">Book Appointment</a>
-                                                        </button>
-                                                    </div>
+    <form action="#" method="POST">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Flying From</span>
+                    <input type="text" name="tour_phone" placeholder="Flying from">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Flying To</span>
+                    <input type="text" name="tour_phone" placeholder="Flying to">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Departing</span>
+                    <input type="text" name="tour_phone" placeholder="Departing">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Adult (12+ yrs) </span>
+                    <select name="tour_destination" class="nice-select w-100">
+                        <option value="">Select</option>
+                        <option value="">1</option>
+                        <option value="">2</option>                        
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Child (3-11 yrs) </span>
+                    <select name="tour_destination" class="nice-select w-100">
+                        <option value="">Select</option>
+                        <option value="">1</option>
+                        <option value="">2</option>                        
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-clt">
+                    <span>Infant (0-2 yrs) </span>
+                    <select name="tour_destination" class="nice-select w-100">
+                        <option value="">Select</option>
+                        <option value="">1</option>
+                        <option value="">2</option>                        
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-clt">
+                    <span>Class</span>
+                    <select name="tour_destination" class="nice-select w-100">
+                        <option value="">Select</option>
+                        <option value="">Business</option>
+                        <option value="">Economy</option>                        
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-clt">
+                    <span>Nationality</span>
+                    <input type="text" name="tour_phone" placeholder="Nationality">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-clt">
+                    <span>Phone</span>
+                    <input type="text" name="tour_phone" placeholder="Phone">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-clt">
+                    <span>Phone</span>
+                    <input type="text" name="tour_phone" placeholder="Email">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-clt">
+                    <button type="submit" class="theme-btn w-100">Submit Tour Request</button>
+                </div>
+            </div>
+        </div>
+    </form>
                                                 </div>
                                             </div>
 
