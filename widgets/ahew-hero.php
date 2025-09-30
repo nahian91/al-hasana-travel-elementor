@@ -130,7 +130,7 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                 <div class="container custom-container-3">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="hero-content">
+                            <div class="hero-content best-price-section">
                                 <?php if ( !empty($settings['subtitle']) ) : ?>
                                     <div class="sub-title wow fadeInUp">
                                         <?php echo esc_html($settings['subtitle']); ?>
@@ -242,24 +242,6 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                     </select>
                 </div>
             </div>
-            
-            <div class="col-md-6">
-                <div class="form-clt">
-                    <span>Class</span>
-                    <select name="tour_destination" class="nice-select w-100">
-                        <option value="">Select</option>
-                        <option value="">Business</option>
-                        <option value="">Economy</option>                        
-                    </select>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="form-clt">
-                    <span>Nationality</span>
-                    <input type="text" name="tour_phone" placeholder="Nationality">
-                </div>
-            </div>
             <div class="col-md-6">
                 <div class="form-clt">
                     <span>Phone</span>
@@ -268,13 +250,13 @@ class AHEW_Hero extends \Elementor\Widget_Base {
             </div>
             <div class="col-md-6">
                 <div class="form-clt">
-                    <span>Phone</span>
+                    <span>Email</span>
                     <input type="text" name="tour_phone" placeholder="Email">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-clt">
-                    <button type="submit" class="theme-btn w-100">Submit Tour Request</button>
+                    <button type="submit" class="theme-btn w-100"><a href="">Submit Tour Request</a></button>
                 </div>
             </div>
         </div>
