@@ -96,6 +96,7 @@ function ahew_register_widgets( $widgets_manager ) {
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-tour.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-cta-two.php';
     require_once AHEW_PLUGIN_DIR . 'widgets/ahew-airlines.php';
+    require_once AHEW_PLUGIN_DIR . 'widgets/ahew-packages.php';
 
     // Register widgets
     $widgets_manager->register( new \AHEW_Team() );
@@ -115,5 +116,6 @@ function ahew_register_widgets( $widgets_manager ) {
     $widgets_manager->register( new \AHEW_Destination() );
     $widgets_manager->register( new \AHEW_Tour() );
     $widgets_manager->register( new \AHEW_Airlines() );
+    $widgets_manager->register( new \AHEW_Tour_Category() );
 }
 add_action( 'elementor/widgets/register', 'ahew_register_widgets' );
