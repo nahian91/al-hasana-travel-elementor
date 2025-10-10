@@ -76,25 +76,11 @@ class AHEW_Hero extends \Elementor\Widget_Base {
             ]
         );
 
-
-        $this->add_control(
-            'background_image',
-            [
-                'label'   => __( 'Background Image', 'al-hasana-elementor-widget' ),
-                'type'    => \Elementor\Controls_Manager::MEDIA,
-                'default' => [
-                    'url' => get_template_directory_uri() . '/assets/img/hero/02.jpg',
-                ],
-            ]
-        );
-
         $this->end_controls_section();
     }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-
-        $bg_image = !empty($settings['background_image']['url']) ? $settings['background_image']['url'] : '';
 
         // Full country list
         $countries = array(
@@ -126,10 +112,11 @@ class AHEW_Hero extends \Elementor\Widget_Base {
 
         <!-- hero-section start -->
         <section class="hero-section-2">
-            <div class="hero-2 bg-cover" style="background-image: url(<?php echo esc_url($bg_image); ?>);">
+            <div class="hero-2">
                 <div class="container custom-container-3">
                     <div class="row">
                         <div class="col-lg-6">
+
                             <div class="hero-content best-price-section">
                                 <?php if ( !empty($settings['subtitle']) ) : ?>
                                     <div class="sub-title wow fadeInUp">
@@ -316,134 +303,115 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                             <!-- VISA Form -->
                                             <div id="thumb2" class="tab-pane fade">
                                                 <div class="comment-form-wrap">
-                                                    <form action="#" method="POST">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Destination Country</span>
-                                                                    <select name="visa_destination" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Your Nationality</span>
-                                                                    <select name="visa_nationality" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Phone</span>
-                                                                    <input type="text" name="visa_phone" placeholder="Enter phone">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Email</span>
-                                                                    <input type="email" name="visa_email" placeholder="Enter email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-clt">
-                                                                    <button type="submit" class="theme-btn w-100">Submit Visa Request</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+
+                                                <?php
+
+// Get all Visa CPT posts
+$visa_posts = get_posts([
+    'post_type'      => 'visa',
+    'posts_per_page' => -1,
+]);
+
+// Prepare options for select fields
+$travel_to_options = [];
+$category_options = [];
+
+if (!empty($visa_posts)) {
+    foreach ($visa_posts as $post) {
+        // Traveling To comes from visa_processing_name
+        $travel_to = get_field('visa_processing_name', $post->ID);
+        if ($travel_to) $travel_to_options[$post->ID] = $travel_to;
+
+        // Visa Category comes from visa_processing_category
+        $category = get_field('visa_processing_category', $post->ID);
+        if ($category) $category_options[$post->ID] = $category;
+    }
+}
+?>
+
+<form id="visa-form">
+    <div class="row">
+        <!-- Citizen Of -->
+        <div class="col-md-6">
+            <div class="form-clt">
+                <span>Citizen Of</span>
+                <select name="visa_citizen" class="nice-select w-100">
+                    <option value="Bangladesh">Bangladesh</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Traveling To -->
+        <div class="col-md-6">
+            <div class="form-clt">
+                <span>Traveling To</span>
+                <select name="visa_travel_to" class="nice-select w-100" required>
+                    <option value="">Select Country</option>
+                    <?php foreach ($travel_to_options as $id => $name): ?>
+                        <option value="<?php echo esc_attr($name); ?>" data-link="<?php echo get_permalink($id); ?>">
+                            <?php echo esc_html($name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Visa Category -->
+        <div class="col-md-12">
+            <div class="form-clt">
+                <span>Visa Category</span>
+                <select name="visa_category" class="nice-select w-100" required>
+                    <option value="">Select Category</option>
+                    <?php foreach ($category_options as $id => $cat): ?>
+                        <option value="<?php echo esc_attr($cat); ?>" data-link="<?php echo get_permalink($id); ?>">
+                            <?php echo esc_html($cat); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-md-12">
+            <div class="form-clt">
+                <button type="submit" class="theme-btn w-100">Submit Visa Request</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+// Redirect to single CPT page with query params on submit
+document.getElementById('visa-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const citizen = this.visa_citizen.value;
+    const travelSelect = this.visa_travel_to;
+    const categorySelect = this.visa_category;
+
+    const travelTo = travelSelect.value;
+    const travelLink = travelSelect.selectedOptions[0].dataset.link;
+
+    const category = categorySelect.value;
+
+    if (!travelTo || !category) {
+        alert('Please select Traveling To and Visa Category.');
+        return;
+    }
+
+    // Build URL with query parameters
+    const url = `${travelLink}?citizen=${encodeURIComponent(citizen)}&travel_to=${encodeURIComponent(travelTo)}&category=${encodeURIComponent(category)}`;
+    window.location.href = url;
+});
+</script>
+
                                                 </div>
                                             </div>
 
                                             <!-- HOTEL Form -->
                                             <div id="thumb3" class="tab-pane fade">
-                                                <div class="comment-form-wrap">
-                                                    <form action="#" method="POST">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Destination Country</span>
-                                                                    <select name="hotel_destination" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Your Nationality</span>
-                                                                    <select name="hotel_nationality" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Rooms</span>
-                                                                    <select name="hotel_rooms" class="nice-select w-100">
-                                                                        <?php for ($r=1;$r<=10;$r++): ?>
-                                                                            <option value="<?php echo $r; ?>"><?php echo $r; ?> Room<?php echo $r>1?'s':''; ?></option>
-                                                                        <?php endfor; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Adults</span>
-                                                                    <select name="hotel_adults" class="nice-select w-100">
-                                                                        <?php for ($a=1;$a<=10;$a++): ?>
-                                                                            <option value="<?php echo $a; ?>"><?php echo $a; ?> Adult<?php echo $a>1?'s':''; ?></option>
-                                                                        <?php endfor; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Children</span>
-                                                                    <select name="hotel_children" class="nice-select w-100">
-                                                                        <?php for ($c=0;$c<=10;$c++): ?>
-                                                                            <option value="<?php echo $c; ?>"><?php echo $c; ?> Child<?php echo $c!=1?'ren':''; ?></option>
-                                                                        <?php endfor; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Number of Days</span>
-                                                                    <input type="number" name="hotel_days" class="form-control" placeholder="Enter number of days">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Phone</span>
-                                                                    <input type="text" name="hotel_phone" placeholder="Enter phone">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Email</span>
-                                                                    <input type="email" name="hotel_email" placeholder="Enter email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-clt">
-                                                                    <button type="submit" class="theme-btn w-100">Submit Hotel Request</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                <div class="hotel-link comment-form-wrap">
+                                                    <a href="https://www.booking.com" target="_blank">Booking.com</a>
                                                 </div>
                                             </div>
 
