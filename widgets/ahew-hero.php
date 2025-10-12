@@ -125,13 +125,13 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                 <?php endif; ?>
 
                                 <?php if ( !empty($settings['title']) ) : ?>
-                                    <h1 class="wow fadeInUp" data-wow-delay=".3s">
+                                    <h1 class="wow fadeInUp" data-wow-delay=".2s">
                                         <?php echo wp_kses_post(nl2br($settings['title'])); ?>
                                     </h1>
                                 <?php endif; ?>
 
                                 <?php if ( !empty($settings['description']) ) : ?>
-                                    <p class="wow fadeInUp" data-wow-delay=".5s">
+                                    <p class="wow fadeInUp" data-wow-delay=".2s">
                                         <?php echo $settings['description']; ?>
                                     </p>
                                 <?php endif; ?>
@@ -150,22 +150,22 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                     <div class="row">
                                         <div class="best-price-wrapper">
                                             <ul class="nav">
-    <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
+    <li class="nav-item wow fadeInUp" data-wow-delay=".2s">
         <a href="#thumb4" data-bs-toggle="tab" class="nav-link active">
             <i class="fa-regular fa-paper-plane"></i> Air Ticket
         </a>
     </li>
-    <li class="nav-item wow fadeInUp" data-wow-delay=".3s">
+    <li class="nav-item wow fadeInUp" data-wow-delay=".2s">
         <a href="#thumb1" data-bs-toggle="tab" class="nav-link">
             <i class="fa-regular fa-map"></i> Tour
         </a>
     </li>
-    <li class="nav-item wow fadeInUp" data-wow-delay=".5s">
+    <li class="nav-item wow fadeInUp" data-wow-delay=".2s">
         <a href="#thumb2" data-bs-toggle="tab" class="nav-link">
             <i class="fa-regular fa-id-card"></i> Visa
         </a>
     </li>
-    <li class="nav-item wow fadeInUp" data-wow-delay=".7s">
+    <li class="nav-item wow fadeInUp" data-wow-delay=".2s">
         <a href="#thumb3" data-bs-toggle="tab" class="nav-link">
             <i class="fa-regular fa-building"></i> Hotel
         </a>
@@ -254,49 +254,113 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                             <!-- TOUR Form -->
                                             <div id="thumb1" class="tab-pane fade">
                                                 <div class="comment-form-wrap">
-                                                    <form action="#" method="POST">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Where Do You Want to Go?</span>
-                                                                    <select name="tour_destination" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Your Nationality</span>
-                                                                    <select name="tour_nationality" class="nice-select w-100">
-                                                                        <option value="">Select Country</option>
-                                                                        <?php foreach ($countries as $country): ?>
-                                                                            <option value="<?php echo esc_attr($country); ?>"><?php echo esc_html($country); ?></option>
-                                                                        <?php endforeach; ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Phone</span>
-                                                                    <input type="text" name="tour_phone" placeholder="Enter phone">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-clt">
-                                                                    <span>Email</span>
-                                                                    <input type="email" name="tour_email" placeholder="Enter email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-clt">
-                                                                    <button type="submit" class="theme-btn w-100">Submit Tour Request</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                    <!-- Search Form -->
+        <form method="get" action="<?php echo esc_url(get_permalink(get_page_by_path('search-tours'))); ?>">
+            <div class="row">
+
+                <!-- Destination -->
+                <div class="col-md-6">
+                    <div class="form-clt">
+                        <span>Where Do You Want to Go?</span>
+                        <select name="tour_destination" class="nice-select w-100">
+                            <option value="">Select Country</option>
+                            <?php
+                            $locations = [];
+                            $tours = get_posts(['post_type' => 'tour', 'posts_per_page' => -1]);
+                            foreach ($tours as $tour) {
+                                $loc = get_field('location', $tour->ID);
+                                if ($loc) $locations[] = $loc;
+                            }
+                            $locations = array_unique($locations);
+                            sort($locations);
+                            foreach ($locations as $loc) {
+                                $selected = (isset($_GET['tour_destination']) && $_GET['tour_destination'] == $loc) ? 'selected' : '';
+                                echo '<option value="'.esc_attr($loc).'" '.$selected.'>'.esc_html($loc).'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Activities -->
+                <div class="col-md-6">
+                    <div class="form-clt">
+                        <span>Activities</span>
+                        <select name="activities[]" class="nice-select w-100">
+                            <?php
+                            $activities_arr = [];
+                            foreach ($tours as $tour) {
+                                $vals = get_field('activities', $tour->ID);
+                                if ($vals) $activities_arr = array_merge($activities_arr, (array)$vals);
+                            }
+                            $activities_arr = array_unique($activities_arr);
+                            sort($activities_arr);
+                            $selected_activities = isset($_GET['activities']) ? (array) $_GET['activities'] : [];
+                            foreach ($activities_arr as $act) {
+                                $selected = in_array($act, $selected_activities) ? 'selected' : '';
+                                echo '<option value="'.esc_attr($act).'" '.$selected.'>'.esc_html($act).'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Trip Types -->
+                <div class="col-md-6">
+                    <div class="form-clt">
+                        <span>Trip Types</span>
+                        <select name="trip_types[]" class="nice-select w-100" >
+                            <?php
+                            $trip_types_arr = [];
+                            foreach ($tours as $tour) {
+                                $vals = get_field('trip_types', $tour->ID);
+                                if ($vals) $trip_types_arr = array_merge($trip_types_arr, (array)$vals);
+                            }
+                            $trip_types_arr = array_unique($trip_types_arr);
+                            sort($trip_types_arr);
+                            $selected_trip_types = isset($_GET['trip_types']) ? (array) $_GET['trip_types'] : [];
+                            foreach ($trip_types_arr as $type) {
+                                $selected = in_array($type, $selected_trip_types) ? 'selected' : '';
+                                echo '<option value="'.esc_attr($type).'" '.$selected.'>'.esc_html($type).'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Difficulty -->
+                <div class="col-md-6">
+                    <div class="form-clt">
+                        <span>Difficulty</span>
+                        <select name="difficulties[]" class="nice-select w-100">
+                            <?php
+                            $difficulties_arr = [];
+                            foreach ($tours as $tour) {
+                                $vals = get_field('difficulties', $tour->ID);
+                                if ($vals) $difficulties_arr = array_merge($difficulties_arr, (array)$vals);
+                            }
+                            $difficulties_arr = array_unique($difficulties_arr);
+                            sort($difficulties_arr);
+                            $selected_difficulties = isset($_GET['difficulties']) ? (array) $_GET['difficulties'] : [];
+                            foreach ($difficulties_arr as $diff) {
+                                $selected = in_array($diff, $selected_difficulties) ? 'selected' : '';
+                                echo '<option value="'.esc_attr($diff).'" '.$selected.'>'.esc_html($diff).'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-md-12 mt-3">
+                    <div class="form-clt">
+                        <button type="submit" class="theme-btn w-100">Search Tours</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
                                                 </div>
                                             </div>
 
@@ -410,9 +474,18 @@ document.getElementById('visa-form').addEventListener('submit', function(e) {
 
                                             <!-- HOTEL Form -->
                                             <div id="thumb3" class="tab-pane fade">
-                                                <div class="hotel-link comment-form-wrap">
-                                                    <a href="https://www.booking.com" target="_blank">Booking.com</a>
-                                                </div>
+                                                 <div class="hotel-link">
+        <a href="https://www.booking.com" target="_blank">Booking.com</a>
+    </div>
+    <div class="hotel-link">
+        <a href="https://www.agoda.com" target="_blank">Agoda</a>
+    </div>
+    <div class="hotel-link">
+        <a href="https://www.tripadvisor.com" target="_blank">TripAdvisor</a>
+    </div>
+    <div class="hotel-link">
+        <a href="https://www.expedia.com" target="_blank">Expedia</a>
+    </div>
                                             </div>
 
                                         </div> <!-- .tab-content -->
