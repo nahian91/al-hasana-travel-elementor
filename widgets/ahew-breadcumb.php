@@ -61,15 +61,23 @@ class AHEW_Breadcumb extends \Elementor\Widget_Base {
         $ahew_breadcumb_image = $settings['ahew_breadcumb_image']['url'];
         ?>
             <!-- breadcrumb-wrappe-Section Start -->
-        <section class="breadcrumb-wrapper fix bg-cover" style="background-image: url(<?php echo $ahew_breadcumb_image;?>">
-            <div class="container">
-                <div class="row">
-                    <div class="page-heading">
-                        <h2><?php echo $ahew_breadcumb_title;?></h2>
-                    </div>
+        <section class="breadcrumb-wrapper fix bg-cover" style="background-image: url(<?php echo $ahew_breadcumb_image;?>)">
+    <div class="container">
+        <div class="row">
+            <div class="page-heading text-center">
+                <h2><?php echo $ahew_breadcumb_title;?></h2>
+
+                <!-- Down Arrow SVG -->
+                <div class="scroll-down-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 24 24">
+                        <path d="M12 13.5l-5-5 1.41-1.41L12 10.67l3.59-3.58L17 8.5z"/>
+                        <path d="M12 19.5l-5-5 1.41-1.41L12 16.67l3.59-3.58L17 14.5z"/>
+                    </svg>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
         <?php 
     }
 }
