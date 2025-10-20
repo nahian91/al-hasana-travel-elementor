@@ -32,6 +32,17 @@ class AHEW_About extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+        'ahew_about_image',
+            [
+                'label'   => __( 'About Image', 'al-hasana-elementor-widget' ),
+                'type'    => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+            ]
+        );
+
+        $this->add_control(
             'ahew_about_subtitle',
             [
                 'label'   => __( 'Subtitle', 'al-hasana-elementor-widget' ),
@@ -93,41 +104,15 @@ class AHEW_About extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $ahew_about_image = $settings['ahew_about_image']['url'];
         ?>
-        <section class="about-section section-padding fix bg-cover" style="background-image: url(<?php echo get_template_directory_uri();?>/assets/img/about/about-bg.jpg);" id="about">
-            <div class="right-shape float-bob-x">
-                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/right-shape.png" alt="img">
-            </div>
+        <section class="about-section section-padding fix bg-cover" id="about">
             <div class="container">
                 <div class="about-wrapper">
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <div class="about-image">
-                                <img src="<?php echo get_template_directory_uri();?>/assets/img/about/01.png" alt="img" class="wow img-custom-anim-left">
-                                <div class="border-image">
-                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/border.png" alt="">
-                                </div>
-                                <div class="vdeo-item">
-                                    <a href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" class="video-btn video-popup">
-                                        <i class="fa-duotone fa-play"></i>
-                                    </a>
-                                    <h5>WATCH VIDEO</h5>
-                                </div>
-                                <div class="about-image-2">
-                                    <img src="<?php echo get_template_directory_uri();?>/assets/img/about/02.png" alt="img" class="wow img-custom-anim-top">
-                                    <div class="plane-shape float-bob-y">
-                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/about/plane-shape.png" alt="">
-                                    </div>
-                                    <div class="about-tour">
-                                        <div class="icon">
-                                            <img src="<?php echo get_template_directory_uri();?>/assets/img/icon/10.svg" alt="img">
-                                        </div>
-                                        <div class="content">
-                                            <h4>Luxury Tour</h4>
-                                            <span>25 years of Experience</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <img src="<?php echo $ahew_about_image;?>" alt="img">
                             </div>
                         </div>
                         <div class="col-lg-6">
