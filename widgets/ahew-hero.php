@@ -368,33 +368,35 @@ class AHEW_Hero extends \Elementor\Widget_Base {
                                             <div id="thumb2" class="tab-pane fade">
                                                 <div class="comment-form-wrap">
 
-                                                <?php
-
+<?php
 // Get all Visa CPT posts
 $visa_posts = get_posts([
     'post_type'      => 'visa',
     'posts_per_page' => -1,
 ]);
 
-// Prepare options for select fields
+// Prepare Traveling To (from ACF field: visa_processing_name)
 $travel_to_options = [];
-$category_options = [];
 
 if (!empty($visa_posts)) {
     foreach ($visa_posts as $post) {
-        // Traveling To comes from visa_processing_name
         $travel_to = get_field('visa_processing_name', $post->ID);
-        if ($travel_to) $travel_to_options[$post->ID] = $travel_to;
-
-        // Visa Category comes from visa_processing_category
-        $category = get_field('visa_processing_category', $post->ID);
-        if ($category) $category_options[$post->ID] = $category;
+        if ($travel_to) {
+            $travel_to_options[$post->ID] = $travel_to;
+        }
     }
 }
+
+// ✅ Get Visa Categories from taxonomy
+$visa_terms = get_terms([
+    'taxonomy'   => 'visa_processing_category',
+    'hide_empty' => false,
+]);
 ?>
 
 <form id="visa-form">
     <div class="row">
+
         <!-- Citizen Of -->
         <div class="col-md-6">
             <div class="form-clt">
@@ -420,17 +422,19 @@ if (!empty($visa_posts)) {
             </div>
         </div>
 
-        <!-- Visa Category -->
+        <!-- Visa Category (Dynamic Taxonomy Terms) -->
         <div class="col-md-12">
             <div class="form-clt">
                 <span>Visa Category</span>
                 <select name="visa_category" class="nice-select w-100" required>
                     <option value="">Select Category</option>
-                    <?php foreach ($category_options as $id => $cat): ?>
-                        <option value="<?php echo esc_attr($cat); ?>" data-link="<?php echo get_permalink($id); ?>">
-                            <?php echo esc_html($cat); ?>
-                        </option>
-                    <?php endforeach; ?>
+                    <?php if (!empty($visa_terms)): ?>
+                        <?php foreach ($visa_terms as $term): ?>
+                            <option value="<?php echo esc_attr($term->name); ?>">
+                                <?php echo esc_html($term->name); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </select>
             </div>
         </div>
@@ -441,11 +445,11 @@ if (!empty($visa_posts)) {
                 <button type="submit" class="theme-btn w-100">Submit Visa Request</button>
             </div>
         </div>
+
     </div>
 </form>
 
 <script>
-// Redirect to single CPT page with query params on submit
 document.getElementById('visa-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -463,13 +467,14 @@ document.getElementById('visa-form').addEventListener('submit', function(e) {
         return;
     }
 
-    // Build URL with query parameters
+    // Redirect with query parameters
     const url = `${travelLink}?citizen=${encodeURIComponent(citizen)}&travel_to=${encodeURIComponent(travelTo)}&category=${encodeURIComponent(category)}`;
     window.location.href = url;
 });
 </script>
 
-                                                </div>
+</div>
+
                                             </div>
 
                                             <!-- HOTEL Form -->
